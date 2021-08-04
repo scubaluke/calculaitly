@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import { Form, Button } from 'semantic-ui-react'
+import { useHistory } from "react-router-dom";
 
-export default function New() {
-    const { Group, Input } = Form;
+export default function New({history}) {
+    const { Input } = Form;
     const [item, setItem] = useState('')
     const [cost, setCost] = useState('')
     const [soldFor, setSoldFor] = useState('')
@@ -12,14 +13,13 @@ export default function New() {
   
     const onSubmit = e => {
         e.preventDefault()
-        console.log('submit');
-        // setItemObj({item, cost, soldFor, time})
-        // console.log(itemObj);
+      
         let items = JSON.parse(localStorage.getItem('items')) || []
         let itemObj = {item, cost, soldFor, time}
-        console.log(items);
+
         items.push(itemObj)
         localStorage.setItem('items', JSON.stringify(items))
+        history.push("/");
     }
 
     return (
