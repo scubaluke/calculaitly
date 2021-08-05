@@ -2,9 +2,7 @@
 import 'semantic-ui-css/semantic.min.css'
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import New from './components/New';
