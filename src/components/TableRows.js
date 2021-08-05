@@ -3,10 +3,10 @@ import { Table } from 'semantic-ui-react'
 
 export default function TableRows({item, cost, soldFor, time}) {
     const total = soldFor - cost
-    const sign = Math.sign(total)
-    console.log(sign);
+    const loss = Math.sign(total) !== 1
+    
     return (
-    <Table.Row>
+    <Table.Row positive={!loss} error={loss} >
         <Table.Cell>{item}</Table.Cell>
         <Table.Cell>{cost}</Table.Cell>
         <Table.Cell>{soldFor}</Table.Cell>
