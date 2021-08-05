@@ -5,8 +5,7 @@ import TableRows from './TableRows';
 import TotalsTable from './TotalsTable';
 
 export default function Home() {
-    // get items from local storage
-    // const items = JSON.parse(localStorage.getItem('items')) || []
+    // get items from local storage and set it as state
     const [items, setItems] = useState(JSON.parse(localStorage.getItem('items')) || [])
 
     // render table rows and calculate net / totals 
@@ -44,7 +43,7 @@ export default function Home() {
                 <Table.Body>
                       {RenderRows}
                 </Table.Body>
-                    <TotalsTable items={items.length} purchaseCost={totalCost} gross={gross} net={net} totalTime={totalTime} totalPerHr={totalPerHr} />
+                    <TotalsTable items={items.length} purchaseCost={totalCost} gross={gross} net={net} totalTime={totalTime} totalPerHr={totalPerHr} setItems={setItems} />
             </Table>
             <hr />
     
