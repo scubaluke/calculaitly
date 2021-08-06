@@ -1,34 +1,82 @@
-import React, {useState} from 'react'
-import { Form, Button } from 'semantic-ui-react'
-// import { useHistory } from "react-router-dom";
+import React from 'react'
+import { Formik } from 'formik';
+import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
 
 export default function New({history}) {
-    const { Input } = Form;
-    const [item, setItem] = useState('')
-    const [cost, setCost] = useState('')
-    const [soldFor, setSoldFor] = useState('')
-    const [time, setTime] = useState('')
-    // const [itemObj, setItemObj] = useState({})
-   
-  
-    const onSubmit = e => {
-        e.preventDefault()
+   const validate = values => {
+        let error = {}
+        if (values.item === '') {
+            error.item = 'Please enter an item name'
+        }
+        if (values.cost  === '') {
+            error.cost = 'Please enter a value'
+        }
+        if (values.soldFor === '') {
+            error.soldFor = 'Please enter a value'
+        } 
+        if (values.time === '') {
+            error.time  = 'Please enter a value'
+        }
+       return error;
+    }
+
+
+    const onSubmit = (values) => {
+        // e.preventDefault()
       
         let items = JSON.parse(localStorage.getItem('items')) || []
+        let {item, cost, soldFor, time} = values
         let itemObj = {item, cost, soldFor, time}
 
         items.push(itemObj)
         localStorage.setItem('items', JSON.stringify(items))
         history.push("/");
-    }
+      }
 
+    const initialValues = {item:'', cost: '', soldFor: '', time : ''}
     return (
-        <Form onSubmit={onSubmit} >
-            <Input fluid label='Item' placeholder='Item' onChange={e => setItem(e.target.value)} />
-            <Input fluid label='Your Cost' type='number' placeholder='Cost' onChange={e => setCost(e.target.value)} />
-             <Input fluid label='Item Sold for:' type='number' placeholder='Sold For' onChange={e => setSoldFor(e.target.value)} />
-             <Input fluid label='Time Spent on Sale' type='number' placeholder='Hours' onChange={e => setTime(e.target.value)} />
-             <Button primary >Create</Button>
+        <div  style={{margin: '20px'}} >
+        <Formik  
+            initialValues={initialValues}
+            onSubmit={(values) => onSubmit(values)}
+            validate={values => validate(values)}
+            >
+        <Form  >
+            <Input 
+                label='Item Name' 
+                name='item'
+                placeholder='Item' 
+                errorPrompt
+            />
+            <Input 
+                label='Your Cost' 
+                name='cost'
+                type='number' 
+                min='0'
+                placeholder='Cost' 
+                errorPrompt
+            />
+             <Input 
+                label='Item Sold for:' 
+                name='soldFor'
+                type='number' 
+                min='0'
+                placeholder='Sold For' 
+                errorPrompt
+
+            />
+             <Input 
+                label='Time Spent on Sale' 
+                name='time'
+                type='number' 
+                min='0'
+                placeholder='Hours' 
+                errorPrompt
+            />
+             <SubmitButton primary
+             >Submit</SubmitButton>
         </Form>
+        </Formik>
+        </div>
     )
 }
