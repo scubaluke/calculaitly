@@ -25,9 +25,11 @@ export default function Home() {
     }) 
 
     return (
-        <>
+        <div style={{margin: '20px'}}>
             <h1>Calculaitly!</h1>
             <h3>Calculate Your Online Sales</h3>
+            {!Boolean(items.length) ? <h1>Add items to get started</h1> 
+            : (
             <Table>
                  <Table.Header>
                 <Table.Row>
@@ -45,9 +47,10 @@ export default function Home() {
                 </Table.Body>
                     <TotalsTable items={items.length} purchaseCost={totalCost} gross={gross} net={net} totalTime={totalTime} totalPerHr={totalPerHr} setItems={setItems} />
             </Table>
+            )}
             <hr />
     
             <Link to='/new'><Button primary >Add Item</Button></Link>
-        </>
+        </div>
     )
 }

@@ -3,8 +3,6 @@ import { Table, Button,Icon } from 'semantic-ui-react'
 
 export default function TotalsTable({items, purchaseCost, gross, net, totalTime, totalPerHr, setItems}) {
     const profit = Math.sign(net) < 0
-    console.log(items.length);
-    console.log(items);
     const onClearAll = () => {
         localStorage.clear()
         setItems([])
